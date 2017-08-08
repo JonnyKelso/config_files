@@ -34,11 +34,12 @@ set encoding=utf-8
 set wrap
 set textwidth=79
 set formatoptions=tcqrn1
-set tabstop=2
-set shiftwidth=2
-set softtabstop=2
+set tabstop=4
+set shiftwidth=4
+set softtabstop=0
 set expandtab
 set noshiftround
+set smarttab
 
 " Cursor motion
 set scrolloff=3
