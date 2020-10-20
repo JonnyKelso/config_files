@@ -12,14 +12,30 @@ syntax on
 " For plugins to load correctly
 filetype plugin indent on
 
-" TODO: Pick a leader key
-" let mapleader = ","
+" Using vim-plug
+call plug#begin('~/.vim/plugged')
+    Plug 'vim-airline/vim-airline'
+    Plug 'vim-airline/vim-airline-themes'
+    Plug 'scrooloose/nerdtree'
+    Plug 'kien/ctrlp.vim'
+    Plug 'rking/ag.vim'
+    Plug 'editorconfig/editorconfig-vim'
+    Plug 'wfxr/minimap.vim'
+call plug#end()
+" set Airline always visible
+set laststatus=2
+
+"code-map mini-map
+let g:minimap_auto_start = 1
+let g:minimap_width = 20
+let mapleader = ","
 
 " Security
 set modelines=0
 
 " Show line numbers
 set number
+set relativenumber 
 
 " Show file stats
 set ruler
@@ -32,7 +48,9 @@ set encoding=utf-8
 
 " Whitespace
 set wrap
-set textwidth=79
+set linebreak
+set nolist
+set textwidth=200
 set formatoptions=tcqrn1
 set tabstop=4
 set shiftwidth=4
@@ -50,6 +68,7 @@ runtime! macros/matchit.vim
 " Move up/down editor lines
 nnoremap j gj
 nnoremap k gk
+noremap <leader>n :NERDTreeToggle<cr>
 
 " Allow hidden buffers
 set hidden
