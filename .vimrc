@@ -1,10 +1,10 @@
 " Don't try to be vi compatible
 set nocompatible
-
 " Helps force plugins to load correctly when it is turned back on below
 filetype off
 
 " TODO: Load plugins here (pathogen or vundle)
+"Plugin 'editorconfig/editorconfig-vim'
 
 " Turn on syntax highlighting
 syntax on
@@ -28,6 +28,16 @@ set laststatus=2
 "code-map mini-map
 let g:minimap_auto_start = 1
 let g:minimap_width = 20
+
+" cscope
+" Don't print out when a scope db is added
+"set nocscopeverbose
+"set nocsverb
+"source ~/.vim/plugin/cscope_maps.vim
+"cs add cscope.out
+"set cscopetag cscopeverbose
+iabbrev teh the
+
 let mapleader = ","
 
 " Security
@@ -36,6 +46,7 @@ set modelines=0
 " Show line numbers
 set number
 set relativenumber 
+"set cursorline
 
 " Show file stats
 set ruler
@@ -47,7 +58,7 @@ set visualbell
 set encoding=utf-8
 
 " Whitespace
-set wrap
+set nowrap
 set linebreak
 set nolist
 set textwidth=200
@@ -59,6 +70,9 @@ set expandtab
 set noshiftround
 set smarttab
 
+" saving files
+set confirm
+
 " Cursor motion
 set scrolloff=3
 set backspace=indent,eol,start
@@ -69,6 +83,10 @@ runtime! macros/matchit.vim
 nnoremap j gj
 nnoremap k gk
 noremap <leader>n :NERDTreeToggle<cr>
+
+" move through loaded buffers with CTRL+j and CTRL+k
+map <C-k> :bprev<CR>
+map <C-j> :bnext<CR>
 
 " Allow hidden buffers
 set hidden
@@ -82,6 +100,10 @@ set laststatus=2
 " Last line
 set showmode
 set showcmd
+set wildmenu
+set title
+set noswapfile
+set nobackup
 
 " Searching
 nnoremap / /\v
