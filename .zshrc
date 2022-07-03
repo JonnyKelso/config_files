@@ -1,8 +1,16 @@
 # If you come from bash you might have to change your $PATH.
 PATH=$HOME/bin:/usr/local/bin:$PATH
 
+# enable core dumps
+ulimit -c unlimited
+
+# use vi bindings
+bindkey -v 
+
 # Path to your oh-my-zsh installation.
 export ZSH="/Users/jon.kelso/.oh-my-zsh"
+export ENABLE_UNITY_BUILD_NOTIFICATIONS=1
+export TODOTXT_DEFAULT_ACTION=ls
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -13,6 +21,8 @@ ZSH_THEME="robbyrussell" # look for a theme which uses hg_prompt_info
 
 function google() { open /Applications/Google\ Chrome.app/ "http://www.google.com/search?q= $1"; }
 function grepsrc() { find . -type f \( -name '*.cpp' -o -name '*.c' -o -name '*.cs' -o -name '*.h' -o -name '*.hpp' \)  -exec grep --color=auto -Hn "$1" {} \; }
+
+#PROMPT='${ret_status}%{$fg_bold[green]%}%p %{$fg[cyan]%}%c %{$fg_bold[blue]%}$(git_prompt_info)$(hg_prompt_info)%{$fg_bold[blue]%} % %{$reset_color%}'
 
 ZSH_THEME_HG_PROMPT_PREFIX="%{$fg_bold[magenta]%}hg:(%{$fg[red]%}"
 ZSH_THEME_HG_PROMPT_SUFFIX="%{$reset_color%}"
@@ -39,7 +49,7 @@ ZSH_THEME_HG_PROMPT_CLEAN="%{$fg[magenta]%})"
 # DISABLE_UPDATE_PROMPT="true"
 
 # Uncomment the following line to change how often to auto-update (in days).
-# export UPDATE_ZSH_DAYS=13
+export UPDATE_ZSH_DAYS=13
 
 # Uncomment the following line if pasting URLs and other text is messed up.
 # DISABLE_MAGIC_FUNCTIONS=true
@@ -51,7 +61,7 @@ ZSH_THEME_HG_PROMPT_CLEAN="%{$fg[magenta]%})"
 # DISABLE_AUTO_TITLE="true"
 
 # Uncomment the following line to enable command auto-correction.
-# ENABLE_CORRECTION="true"
+#ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
 COMPLETION_WAITING_DOTS="true"
@@ -67,7 +77,7 @@ COMPLETION_WAITING_DOTS="true"
 # "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
 # or set a custom format using the strftime function format specifications,
 # see 'man strftime' for details.
-HIST_STAMPS="yyyy/mm/dd"
+HIST_STAMPS="%y/%m/%d %T"
 
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
@@ -77,7 +87,7 @@ HIST_STAMPS="yyyy/mm/dd"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(mercurial)
+plugins=(mercurial git)
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
@@ -104,11 +114,29 @@ source $ZSH/oh-my-zsh.sh
 #
 # aliases
 alias python='python3'
+alias buildBoth='./jam MacEditor && ./jam MacPlayer'
+alias buildBothRelease='./jam MacEditor -sCONFIG=release && ./jam MacPlayer -sCONFIG=release'
+alias buildEditor='./jam MacEditor'
+alias jme='./jam MacEditor'
+alias buildEditorRelease='./jam MacEditor -sCONFIG=release'
+alias buildPlayer='./jam MacPlayer'
+alias buildPlayer='./jam MacPlayer -sCONFIG=release'
 alias agsrc='ag -i -stats --cpp --csharp'
+alias bk='bokken-cli'
 alias ll='ls -alhF'
-
+alias ld='ls'
+alias t='todo.sh -d /Users/jon.kelso/.todo.cfg'
+# Git
+alias gs='git status'
+alias gb='git branch'
+alias gitb='git branch'
+alias gits='git status'
+alias gnuke='echo "Cleaning build..." && rm -rf artifacts && rm -rf build && echo "Cleaning git repo..." && git reset --hard HEAD && git clean -f -d && echo "Done."'
+alias clean='echo "Cleaning build..." && rm -rf artifacts && rm -rf build'
+alias gc='git commit -m'
+alias hidebranch='git config --add oh-my-zsh.hide-status 1'
+alias showbranch='git config --add oh-my-zsh.hide-status 0'
 # Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
-PROMPT='%{$fg[yellow]%}[%D{%f/%m/%y} %D{%L:%M:%S}] '$PROMPT': '
+PROMPT='%{$fg[yellow]%}[%D{%f/%m/%y} %D{%L:%M:%S}] '$PROMPT' 
+$: '
 ctags=/usr/local/bin/ctags

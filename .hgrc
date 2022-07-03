@@ -1,0 +1,78 @@
+%include ~/unity-meta/Configs/Mercurial/format.inc.ini
+[ui]
+username = Jonny Kelso <jon.kelso@unity3d.com>
+merge = bcomp
+# uncomment to disable color in command output
+# (see 'hg help color' for details)
+# color = never
+# uncomment to disable command output pagination
+# (see 'hg help pager' for details)
+# paginate = never
+
+[extensions]
+largefiles=
+eol=
+rebase=
+transplant=
+progress=
+purge=
+strip=
+histedit=
+share=
+record=
+blackbox=
+mercurial_keyring=
+dynapath = ~/Development/dynapath/Unity-Technologies-dynapath-fac546029be1/
+extdiff =
+
+[extdiff]
+cmd.bcomp = /usr/local/bin/bcomp
+opts.bcomp = -ro -leftreadonly
+
+[merge-tools]
+bcomp.executable = /usr/local/bin/bcomp
+bcomp.args = $local $other $base $output
+bcomp.priority = 1
+bcomp.premerge = True
+bcomp.gui = True
+
+[dynapath]
+bri-mirror.ipprefix = 10.44.32.0/22
+bri-mirror.pathprefix = https://ono.unity3d.com/
+bri-mirror.pathsubst = https://ono-bri-p02.hq.unity3d.com/
+
+[diff]
+git = True
+
+[tortoisehg]
+graphopt = True
+
+[format]
+aggressivemergedeltas = yes
+
+[experimental]
+maxdeltachainspan = 500MB
+
+[hgunity]
+#format.oncommit = check
+
+[auth]
+ono.schemes = https
+ono.prefix = ono.unity3d.com
+ono.username = jon.kelso@unity3d.com
+bri-mirror.schemes = https
+bri-mirror.prefix = ono-bri-p02.hq.unity3d.com
+bri-mirror.username = jon.kelso@unity3d.com
+onodirect.schemes = https
+onodirect.prefix = ono-direct.unity3d.com
+onodirect.username = jon.kelso@unity3d.com
+
+[hostsecurity]
+disabletls10warning = true
+
+#[web]
+#cacerts = /usr/local/etc/openssl@1.1/cert.pem
+
+[alias]
+pushdraft = push -f -r. https://jon.kelso@ono.unity3d.com/unity/draft
+pulldraft = pull -r $1 https://jon.kelso@ono.unity3d.com/unity/draft

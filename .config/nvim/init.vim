@@ -1,5 +1,5 @@
-set runtimepath+=~/.vim,~/.vim/after
-set packpath+=~/.vim
+"set runtimepath+=~/.vim,~/.vim/after
+"set packpath+=~/.vim
 "source ~/.vimrc
 
 "set modelines=0
@@ -56,31 +56,42 @@ syntax on
 call plug#begin('~/.vim/plugged')
     Plug 'vim-airline/vim-airline'
     Plug 'vim-airline/vim-airline-themes'
-    Plug 'scrooloose/nerdtree'
-    Plug 'kien/ctrlp.vim'
-    Plug 'rking/ag.vim'
+"    Plug 'scrooloose/nerdtree'
+"    Plug 'kien/ctrlp.vim'
+"    Plug 'rking/ag.vim'
     Plug 'editorconfig/editorconfig-vim'
-"    Plug 'wfxr/minimap.vim'
+    Plug 'wfxr/minimap.vim'
     Plug 'vimwiki/vimwiki'
     Plug 'mileszs/ack.vim'
     Plug 'tpope/vim-fugitive'
     Plug 'gruvbox-community/gruvbox'
-    Plug 'nvim-telescope/telescope.nvim'
     Plug 'BurntSushi/ripgrep'
     Plug 'nvim-treesitter/nvim-treesitter'
+" telescope
     Plug 'nvim-lua/popup.nvim'
     Plug 'nvim-lua/plenary.nvim'
     Plug 'nvim-telescope/telescope.nvim'
-    Plug 'nvim-telescope/telescope-fzy-native.nvim'
-    " lsp...
+    Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
+
 call plug#end()
 
+" Telescope lua config
+lua << EOF
+require('telescope').setup{
+  defaults = {
+    prompt_prefix = "$ "
+  }
+}
+require('telescope').load_extension('fzf')
+EOF
+
+
 " set Airline always visible
-"set laststatus=2
+set laststatus=2
 
 "code-map mini-map
-"let g:minimap_auto_start = 0
-"let g:minimap_width = 20
+let g:minimap_auto_start = 1
+let g:minimap_width = 20
 
 "vimwiki
 let g:vimwiki_list = [{'path':'~/Documents/GoogleDrive/notes/vimwiki', 'syntax': 'markdown', 'ext': '.md'}]
@@ -102,7 +113,8 @@ let g:vimwiki_ext2syntax = {'.md': 'markdown','.markdown': 'markdown', '.mdown':
 "nmap <leader>gs :G<CR>
 
 "morhetz/gruvbox
-colorscheme gruvbox
+:colorscheme gruvbox
+":colorscheme molokai
 set background=dark
 highlight Normal guibg=none
 
@@ -133,8 +145,9 @@ inoremap ? ?<C-g>u
 "inoremap <C-k> <esc>:m .-2<CR>==
 "nnoremap <leader>k :m .-2<CR>==
 "nnoremap <leader>j :m .+1<CR>==
+"
 " move through loaded buffers with CTRL+j and CTRL+k
-map <C-k> :bprev<CR>
+map <C-k> :bprev<CR> 
 map <C-j> :bnext<CR>
 
 " Searching
@@ -151,6 +164,9 @@ nnoremap ff <cmd>Telescope find_files<cr>
 nnoremap fg <cmd>Telescope live_grep<cr>
 nnoremap fb <cmd>Telescope buffers<cr>
 nnoremap fh <cmd>Telescope help_tags<cr>
+nnoremap gc <cmd>Telescope git_commits<cr>
+nnoremap gb <cmd>Telescope git_branches<cr>
+nnoremap gs <cmd>Telescope git_status<cr>
 " Textmate holdouts
 
 " Formatting
@@ -160,7 +176,7 @@ nnoremap fh <cmd>Telescope help_tags<cr>
 " Uncomment this to enable by default:
 " set list " To enable by default
 " Or use your leader key + l to toggle on/off
-map <leader>l :set list!<CR> " Toggle tabs and EOL
+" map <leader>l :set list!<CR> " Toggle tabs and EOL
 " opens search results in a window w/ links and highlight the matches
 "command! -nargs=+ Grep execute 'silent grep! -I -r -n --exclude *.{json,pyc} . -e <args>' | copen | execute 'silent /<args>'
 " shift-control-* Greps for the word under the cursor
